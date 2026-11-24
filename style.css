@@ -119,3 +119,89 @@ button:hover {
 .name-setting button {
     padding: 10px;
 }
+
+/* 花枝丸 Sprite Sheet */
+.pet-sprite {
+    width: 240px;
+    height: 240px;
+    margin: 0 auto;
+
+    background-image: url("images/huazhiwan-spritesheet.png");
+    background-repeat: no-repeat;
+    background-size: 400% 400%;
+
+    image-rendering: pixelated;
+}
+
+/* 待機動畫 */
+.pet-sprite.idle {
+    animation: petIdle 1.2s steps(4) infinite;
+}
+
+@keyframes petIdle {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 100% 0;
+    }
+}
+
+/* 走路動畫：第 2 列 */
+.pet-sprite.walk {
+    animation: petWalk 0.8s steps(4) infinite;
+}
+
+@keyframes petWalk {
+    from {
+        background-position: 0 33.333%;
+    }
+    to {
+        background-position: 100% 33.333%;
+    }
+}
+
+/* 跳躍動畫：第 3 列 */
+.pet-sprite.jump {
+    animation: petJump 0.8s steps(4) infinite;
+}
+
+@keyframes petJump {
+    from {
+        background-position: 0 66.667%;
+    }
+    to {
+        background-position: 100% 66.667%;
+    }
+}
+
+/* 睡覺動畫：第 4 列 */
+.pet-sprite.sleep {
+    animation: petSleep 1.5s steps(4) infinite;
+}
+
+@keyframes petSleep {
+    from {
+        background-position: 0 100%;
+    }
+    to {
+        background-position: 100% 100%;
+    }
+}
+
+/* 散步移動 */
+/* 散步動畫與移動 */
+.pet-sprite.walk {
+    animation: petWalk 0.8s steps(4) infinite,
+               petMove 3s linear forwards;
+}
+
+@keyframes petMove {
+    0% {
+        transform: translateX(-100px);
+    }
+    100% {
+        transform: translateX(100px);
+    }
+}

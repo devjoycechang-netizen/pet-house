@@ -35,6 +35,9 @@ function updateStatus() {
 // 餵食
 function feedPet() {
     hunger = Math.min(100, hunger + 20);
+
+    changePetAnimation("idle");
+
     updateStatus();
 }
 
@@ -49,12 +52,17 @@ function playPet() {
     energy = Math.max(0, energy - 15);
     hunger = Math.max(0, hunger - 10);
 
+    changePetAnimation("jump");
+
     updateStatus();
 }
 
 // 睡覺
 function sleepPet() {
     energy = Math.min(100, energy + 30);
+
+    changePetAnimation("sleep");
+
     updateStatus();
 }
 
@@ -112,3 +120,48 @@ function changePetName() {
 
 // 網頁載入時顯示已保存的名字
 document.getElementById("petName").textContent = petName;
+
+// 切換花枝丸動畫
+function changePetAnimation(animation) {
+    const pet = document.getElementById("petImage");
+
+    clearTimeout(pet.animationTimer);
+    clearTimeout(pet.autoWalkTimer);
+
+    pet.classList.remove("idle", "walk", "jump", "sleep");
+    pet.classList.add(animation);
+
+    if (animation === "jump") {
+        pet.animationTimer = setTimeout(() => {
+            changePetAnimation("idle");
+        }, 1000);
+    }
+
+    if (animation === "sleep") {
+        pet.animationTimer = setTimeout(() => {
+            changePetAnimation("idle");
+        }, 3000);
+    }
+
+    if (animation === "walk") {
+        pet.animationTimer = setTimeout(() => {
+            changePetAnimation("idle");
+        }, 3000);
+    }
+
+    // 待機一段時間後，隨機開始散步
+    if (animation === "idle") {
+        const randomTime = Math.random() * 7000 + 8000;
+
+        pet.autoWalkTimer = setTimeout(() => {
+            changePetAnimation("walk");
+        }, randomTime);
+    }
+}
+
+// 散步
+function walkPet() {
+    changePetAnimation("walk");
+}
+
+changePetAnimation("idle");
